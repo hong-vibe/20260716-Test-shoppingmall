@@ -10,6 +10,7 @@ import ProductDetail from './components/ProductDetail';
 import CartSection from './components/CartSection';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import CategoryPage from './components/CategoryPage';
 import { Loader2 } from 'lucide-react';
 
 // 공통 레이아웃 컴포넌트 (상단 네비게이션바 + 페이지 콘텐츠(Outlet) + 하단 푸터 배치)
@@ -115,6 +116,7 @@ function App() {
           <Route path="/" element={<ProductList />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<CartSection />} />
+          <Route path="/category/:categoryName" element={<CategoryPage />} />
         </Route>
       </Route>
 
