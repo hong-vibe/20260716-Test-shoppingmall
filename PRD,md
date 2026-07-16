@@ -1,0 +1,144 @@
+# 제품 요구사항 정의서 (PRD): React 쇼핑몰 앱
+
+## ## 1. 프로젝트 개요 및 목표
+
+본 프로젝트는 사용자가 Fake Store API 기반의 상품 데이터를 조회하고, Firebase Authentication을 통해 로그인/로그아웃을 처리하며, 선택한 상품을 전역 상태(Redux Toolkit)로 관리되는 장바구니에 담아 실시간 총액을 계산하는 React 쇼핑몰 웹 애플리케이션입니다.
+
+* **목표:** React, Redux Toolkit, Firebase를 유기적으로 통합하고 비동기 예외 처리와 로딩 UX를 보완하여 견고한 프론트엔드 아키텍처를 구현합니다.
+* **핵심 제약 조건:** * 실제 결제, 주문 내역 저장, 배송 관리, 회원 등급 등 범위 초과 기능은 일체 배제합니다.
+* `.env` 파일에 실제 Firebase API Key를 직접 하드코딩하여 커밋하지 않으며, `.env.example` 포맷을 엄수합니다.
+
+
+
+---
+
+## ## 2. 기술 스택 및 라이브러리
+
+* **UI / 프레임워크:** React (Vite 기반 개발 환경 구성)
+* **스타일링:** Tailwind CSS (Antigravity IDE 내 Tailwind CDN 또는 PostCSS 사용)
+* **전역 상태관리:** Redux Toolkit (`@reduxjs/toolkit`, `react-redux`)
+* **인증 및 백엔드:** Firebase SDK (`firebase`)
+* **API 클라이언트:** Native Fetch API 또는 `axios`
+* **선택 확장:** TypeScript (타입 정의 파일 포함 가능)
+
+---
+
+## ## 3. 단계별 구현 및 개발 로드맵
+
+### ### Phase 1: 개발 환경 셋업 & 전역 상태 구조 설계 (Redux Toolkit)
+
+프로젝트 초기 뼈대를 생성하고, 전역 상태인 장바구니(`cart`)의 Slice 및 Store를 설계합니다.
+
+* **하위 작업:**
+1. Vite를 통한 React 프로젝트 생성 및 Tailwind CSS 구성.
+2. `src/app/store.js` 및 `src/features/cart/cartSlice.js` 생성.
+3. **데이터 구조 정의:**
+* `product` 데이터 구조: `id`, `title`, `price`, `image`, `category`, `description`
+* `cartItem` 데이터 구조: `id`, `title`, `price`, `image`, `quantity` (수량 정보 필수 포함)
+
+
+4. **Redux Actions & Reducers 정의:**
+* `addToCart`: 동일 상품 존재 시 `quantity` 1 증가, 없을 시 신규 추가.
+* `updateQuantity`: 특정 상품의 수량을 변경 (최소 수량 1 제한).
+* `removeFromCart`: 특정 상품을 장바구니에서 제거.
+* `clearCart`: 장바구니 완전히 비우기.
+
+
+5. **Selectors 정의:**
+* `selectCartItems`: 장바구니 아이템 배열 조회.
+* `selectCartTotal`: 장바구니 아이템들의 가격과 수량을 곱한 전역 실시간 총합액($\sum (\text{price} \times \text{quantity})$) 계산 Selector.
+
+
+
+
+
+---
+
+### ### Phase 2: Firebase Authentication 통합
+
+Firebase Auth SDK를 연동하여 로그인 상태 파악, 사용자 정보 연동 및 보안 처리를 수행합니다.
+
+* **하위 작업:**
+1. `src/services/firebase.js` 생성 및 Firebase Web App 초기화 구성.
+2. `.env.example` 작성 및 로컬 개발용 `.env` 생성 (API Key 누출 차단).
+3. `onAuthStateChanged` 리스너를 활용한 전역 인증 상태(`authUser`) 구독 관리.
+* `authUser` 구조화 필드: `uid`, `displayName`, `email`, `photoURL` (보안을 위해 UI 노출 시 마스킹 처리 대비).
+
+
+4. **인증 UX 분기 처리:**
+* **초기 로딩(Loading):** 인증 정보가 확인되기 전까지 깜빡임 방지용 스피너 UI 표시.
+* **비로그인(Unauthenticated):** 이메일/비밀번호 입력 폼 또는 Google 간편 로그인 버튼 제공. 로그인 실패 시 명확한 에러 메시지(오류 안내 UI) 출력.
+* **로그인 완료(Authenticated):** 사용자 프로필 정보 일부 표시 및 로그아웃 버튼 제공.
+
+
+5. 로그아웃 처리 시 전역 `cart` 초기화 정책 적용 검토.
+
+
+
+---
+
+### ### Phase 3: Fake Store API 연동 및 비동기 상태 처리
+
+외부 API로부터 상품 데이터를 Fetch하여 가공하고, 네트워크 에러나 서버 장애 상황에 완벽히 대응합니다.
+
+* **하위 작업:**
+1. `https://fakestoreapi.com/products` 호출을 처리하는 비동기 데이터 흐름 구현.
+2. **API 상태 다형성 처리:**
+* `loading`: 스켈레톤 UI 또는 로딩 인디케이터 표시.
+* `success`: 데이터를 내부 `product` 스키마로 매핑하여 화면에 출력.
+* `error`: 에러 안내 UI 구성 및 "다시 시도(Retry)" 버튼 활성화.
+* `empty`: 조회된 상품이 없을 경우 빈 화면 안내 UI 노출.
+
+
+3. **Mock Fallback 시스템 구축:**
+* API 통신 장애 혹은 오프라인 상태 발생 시, 프로젝트 내부 `src/mocks/products.json`에 선언된 동일 스키마 구조의 로컬 mock 데이터 세트를 로드하여 앱이 정상적으로 구동하도록 예외 설계.
+
+
+
+
+
+---
+
+### ### Phase 4: UI 컴포넌트 연결 & 상태 흐름 통합
+
+작성된 비동기 API 데이터와 전역 장바구니 상태, Firebase 인증 로직을 결합한 통합 화면을 빌드합니다.
+
+```
+[ App.js ] (인증 리스너 및 초기 분기)
+   │
+   ├── [ Navbar ] ── (로그인 상태, 사용자 이름, 장바구니 수량 배지)
+   │
+   ├── [ ProductList ] ── (API / Mock 데이터 로드 및 loading/error UI)
+   │         └── [ ProductCard ] ── (상품 정보 및 '담기' 버튼 -> dispatch(addToCart))
+   │
+   └── [ CartSection ] ── (전역 장바구니 목록 & 수량 수정 & 삭제)
+             └── [ CartSummary ] ── (실시간 총액 출력)
+
+```
+
+* **하위 작업:**
+1. `ProductCard` 컴포넌트에서 '담기' 버튼 클릭 시 `id`, `price` 등을 실어 `addToCart` 액션 dispatch.
+2. `Cart` 및 `CartSummary` 컴포넌트에서 Redux selector를 활용해 실시간으로 추가된 상품 수량 및 총액 변동 감지.
+3. Tailwind CSS를 적용한 직관적이고 미려한 컴포넌트 레이아웃 구성 (모바일 지원을 고려한 간단한 반응형 그리드 도입).
+
+
+
+---
+
+### ### Phase 5: 최종 예외 검증, 테스트 및 배포 준비 (README 작성)
+
+완성된 앱을 엄격한 보안 및 자가 점검 체크리스트를 기반으로 검증하고 문서를 정리합니다.
+
+* **테스트 시나리오 수행 리스트:**
+1. **최초 실행 테스트:** 인증 확인 전 초기 로딩이 표시되는가?
+2. **인증 시나리오:** 로그인 성공, 실패 메시지 노출, 로그아웃 후 비로그인 화면 복귀가 정상적인가?
+3. **API 상태 테스트:** 네트워크 차단 시 화면이 크래시되지 않고 로컬 mock 데이터로 원활하게 Fallback 작동하는가?
+4. **장바구니 정합성 테스트:** * 상품 추가 시 수량 증가 및 총액 반영 검증.
+* 수량 1 미만 감소 차단 검증.
+* 아이템 전체 삭제 후 총액이 0원으로 초기화되는지 확인.
+
+
+
+
+* **보안 검사:** `.env` 및 Firebase Admin private key 등 민감 자산이 소스코드에 커밋되지 않았는지 최종 확인.
+* **산출물 정리:** 제출 템플릿 양식에 맞춰 AI 프롬프트 사용 내역과 트러블슈팅 이력이 포함된 `README.md` 작성 및 최종 코드 패키징.
