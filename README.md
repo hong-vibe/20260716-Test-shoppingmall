@@ -387,7 +387,7 @@ App 시작 ➔ [onAuthStateChanged] 구독 ➔ 인증 확인 중 (Loader 스피�
 * **Firebase 배포 설정 주의:** GitHub Pages 등 외부 웹 호스팅 환경에서 구글 소셜 로그인 팝업이 정상 작동하려면 Firebase Console > Authentication > Settings > Authorized domains 에 해당 배포 도메인(예: `hong-vibe.github.io`)을 등록해야 한다는 점을 파악하고 적용했습니다.
 * **한계:** TypeScript를 최종 도입하지 않고 JavaScript 환경으로만 구현하여, 런타임에 유입될 수 있는 price 값 등의 엄격한 타입 안정성을 온전히 정적 검증하지는 못했습니다.
 * **다음 개선 (우선순위):**
-  1. **폴더 구조 분리:** 현재 단일 루트 폴더 구조를 `frontend` 및 `backend` 로 이원화하여 Express 실제 API 서버를 마운트할 백엔드 인프라 구축.
+  1. **실제 백엔드 API/DB 고도화:** 현재는 외부 Fake Store API 및 로컬 mock 데이터 기반으로 백엔드 역할을 대체(Fake)하여 구축했으므로, 향후 Express.js 및 데이터베이스(Node.js/DB)를 직접 탑재하여 자체 백엔드 API 서버 및 DB 연동 인프라로 확장.
   2. **TypeScript 전환:** 주요 데이터 인터페이스인 `Product`, `CartItem`, `AuthUser` 타입을 `.ts`로 정의하여 정적 타입 오류 사전에 예방.
 
 ---
