@@ -146,7 +146,10 @@ const CartSection = () => {
           </div>
 
           <button
-            onClick={() => alert(`총 $${cartTotal.toFixed(2)} 결제가 시뮬레이션되었습니다! (실제 결제 제외)`)}
+            onClick={() => {
+              alert(`🎉 총 $${cartTotal.toFixed(2)} 주문 및 구매 시뮬레이션이 성공적으로 완료되었습니다!\n장바구니 목록이 비워집니다.`);
+              dispatch(clearCart());
+            }}
             className="w-full bg-blue-600 hover:bg-blue-500 active:scale-98 text-white font-bold py-3.5 rounded-2xl text-sm transition-all duration-200 shadow-md shadow-blue-900/30 cursor-pointer"
           >
             구매 시뮬레이션 하기
