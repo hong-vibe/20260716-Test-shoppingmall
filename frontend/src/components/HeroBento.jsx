@@ -30,11 +30,7 @@ const HeroBento = () => {
             </div>
           </div>
 
-          {/* 데코 40% OFF 배지 */}
-          <div className="absolute top-6 right-8 text-right z-10 opacity-20 md:opacity-80">
-            <span className="text-6xl md:text-7xl font-black text-emerald-800/15 block leading-none">40%</span>
-            <span className="text-[10px] font-black text-emerald-700 tracking-widest uppercase">SPECIAL OFFER</span>
-          </div>
+
 
           {/* 누끼 컷 모델 이미지 */}
           <div className="w-[80%] md:w-[50%] mt-6 md:mt-0 flex justify-center items-end h-[115%] absolute -bottom-2 -right-4 md:right-4 z-0">
