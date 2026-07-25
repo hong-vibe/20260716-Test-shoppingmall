@@ -213,11 +213,19 @@
 * **Firebase 인증 제공자:** 이메일/비밀번호, Google 로그인 활성화 필수
 
 ### 설치와 실행
+
+#### 1) 온라인 호스팅 접속 (권장)
+* **GitHub Pages 실행 URL:** [https://hong-vibe.github.io/20260716-Test-shoppingmall/](https://hong-vibe.github.io/20260716-Test-shoppingmall/)
+
+#### 2) 로컬 개발 환경 구동
 ```bash
-# 1. 의존성 패키지 설치
+# 1. frontend 디렉터리 이동
+cd frontend
+
+# 2. 의존성 패키지 설치
 npm install
 
-# 2. 로컬 개발 서버 구동 (포트 4000)
+# 3. 개발 서버 구동 (포트 4000)
 npm run dev
 ```
 
@@ -385,6 +393,6 @@ App 시작 ➔ [onAuthStateChanged] 구독 ➔ 인증 확인 중 (Loader 스피�
 
 ## 17. 제출 정보
 
-* **결과물 레포 URL:** [로컬 Git 레포지토리 위치](file:///d:/new-vibe/20260716-Test-shoppingmall)
-* **실행·배포 URL:** `http://localhost:4000/` (로컬 기동 상태)
+* **결과물 레포 URL:** [https://github.com/hong-vibe/20260716-Test-shoppingmall](https://github.com/hong-vibe/20260716-Test-shoppingmall)
+* **실행·배포 URL:** [https://hong-vibe.github.io/20260716-Test-shoppingmall/](https://hong-vibe.github.io/20260716-Test-shoppingmall/)
 * **제출 폼 주소:** [제출 폼 링크](https://goor.me/aiswwork1) (v0.3 기준 제출지: https://goor.me/aiswwork1)
