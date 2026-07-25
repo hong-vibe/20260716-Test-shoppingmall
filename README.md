@@ -396,4 +396,3 @@ App 시작 ➔ [onAuthStateChanged] 구독 ➔ 인증 확인 중 (Loader 스피�
 
 * **결과물 레포 URL:** [https://github.com/hong-vibe/20260716-Test-shoppingmall](https://github.com/hong-vibe/20260716-Test-shoppingmall)
 * **실행·배포 URL:** [https://hong-vibe.github.io/20260716-Test-shoppingmall/](https://hong-vibe.github.io/20260716-Test-shoppingmall/)
-* **제출 폼 주소:** [제출 폼 링크](https://goor.me/aiswwork1) (v0.3 기준 제출지: https://goor.me/aiswwork1)
