@@ -368,6 +368,7 @@ App 시작 ➔ [onAuthStateChanged] 구독 ➔ 인증 확인 중 (Loader 스피�
 | :---: | :--- | :--- | :--- | :--- | :---: |
 | **1** | Redux | `addToCart` 시 수량이 항상 1씩만 증가함 | 상세페이지에서 넘기는 `quantity` 페이로드를 스토어 리듀서가 읽어오지 않음 | `const addQty = product.quantity || 1;` 로직 도입하여 다량 담기 가중치 설정 | 성공 |
 | **2** | Firebase | `Firebase: Error (auth/invalid-api-key)` | .env 키값이 dummy이거나 비어있을 때 initializeApp 함수가 예외를 던지며 뻗음 | initializeApp 호출단을 `try-catch` 안전 장치로 감싸고, 실패 시 mock 로그인 모드 구동 | 성공 |
+| **3** | Firebase / 호스팅 | `auth/unauthorized-domain` (배포 사이트 구글 로그인 시 0.1초 반짝 후 팝업 닫힘 에러) | Firebase Authentication 보안 정책상 `hong-vibe.github.io` 도메인이 승인(Authorized domains)되지 않아 팝업 인증이 거부됨 | 1. Firebase Console > Authentication > Settings > Authorized domains 에 `hong-vibe.github.io` 추가.<br/>2. `firebase.js` 내 기본 client config 및 `prompt: 'select_account'` 세팅 및 fallback 가드 추가 | 성공 |
 
 ---
 
@@ -384,6 +385,7 @@ App 시작 ➔ [onAuthStateChanged] 구독 ➔ 인증 확인 중 (Loader 스피�
 ## 16. 배운 점·한계·다음 개선
 
 * **배운 점:** React Router v6의 중첩 라우트 구조 및 `ProtectedRoute`를 통한 접근 제어(Route Guard) 아키텍처를 견고하게 구현하는 방법을 숙지했습니다. 또한 API 에러 및 환경 설정 부재 시 앱 전체가 죽지 않도록 예외 처리(try-catch 및 mock Fallback)를 적극 도입하는 방어적 프론트엔드 설계의 필요성을 절실히 배웠습니다.
+* **Firebase 배포 설정 주의:** GitHub Pages 등 외부 웹 호스팅 환경에서 구글 소셜 로그인 팝업이 정상 작동하려면 Firebase Console > Authentication > Settings > Authorized domains 에 해당 배포 도메인(예: `hong-vibe.github.io`)을 등록해야 한다는 점을 파악하고 적용했습니다.
 * **한계:** TypeScript를 최종 도입하지 않고 JavaScript 환경으로만 구현하여, 런타임에 유입될 수 있는 price 값 등의 엄격한 타입 안정성을 온전히 정적 검증하지는 못했습니다.
 * **다음 개선 (우선순위):**
   1. **폴더 구조 분리:** 현재 단일 루트 폴더 구조를 `frontend` 및 `backend` 로 이원화하여 Express 실제 API 서버를 마운트할 백엔드 인프라 구축.
