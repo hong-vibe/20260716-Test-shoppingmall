@@ -8,14 +8,14 @@ import {
   createUserWithEmailAndPassword
 } from 'firebase/auth';
 
-// 환경 변수 비밀번호 파일(.env)에서 설정 값들을 불러옵니다.
+// Firebase Client 설정 정보를 불러옵니다 (기본 클라이언트 설정 지원).
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyArHpJ0sjznuiBQwUVPmq2rpdkTEc4kwS0",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "vibe-shoppingmall.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "vibe-shoppingmall",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "vibe-shoppingmall.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "425495094402",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:425495094402:web:dae609e98ea894a77d409b",
 };
 
 let app;
@@ -77,13 +77,21 @@ export const loginWithGoogle = async () => {
     };
   }
 
+  const provider = new GoogleAuthProvider();
+  // 사용자가 언제나 구글 아이디 선택창을 직접 볼 수 있도록 prompt 옵션 추가
+  provider.setCustomParameters({
+    prompt: 'select_account'
+  });
+
   try {
-    const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     return result.user;
   } catch (error) {
-    console.warn("Firebase 구글 팝업 인증 예외 발생 (Fallback 가동):", error);
-    // 도메인 미승인 또는 팝업 차단 발생 시 테스트 구글 유저로 안전 전환
+    console.warn("Firebase 구글 팝업 인증 에러:", error);
+    if (error.code === 'auth/popup-closed-by-user') {
+      throw new Error('구글 로그인 팝업이 닫혔습니다.');
+    }
+    // 도메인 미승인 등 팝업 차단 환경 시 가짜 계정 대체
     return {
       uid: 'mock-google-uid-fallback',
       displayName: '테스트 구글 유저',
