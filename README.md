@@ -9,7 +9,6 @@
 | **핵심 기술** | React, Redux Toolkit, Firebase Authentication, React Router |
 | **상품 데이터** | Fake Store API 및 기록된 mock 대체 (`products.json`) |
 | **선택 기술** | Tailwind CSS v4, Lucide React, React Router v6 |
-| **결과 예시** | [과제 결과 예시 링크](https://drive.google.com/file/d/1fUeCYpSu0H_BU154iN7t1IHM37cDo6mz/view?usp=sharing) |
 
 ### 한 줄 소개
 이 프로젝트는 **안전한 인증을 마친** 사용자가 상품을 조회하고 Firebase로 로그인하며, 원하는 상품을 전역 장바구니에 담아 예상 총액을 확인할 수 있는 **React 쇼핑몰**입니다.
