@@ -22,7 +22,7 @@ const Layout = ({ authUser, onLogout }) => (
     </main>
     <footer className="bg-slate-900 text-slate-500 py-8 text-center text-xs border-t border-slate-800">
       <div className="max-w-6xl mx-auto px-4 space-y-2">
-        <p>© 2026 VIBE SHOP. All rights reserved.</p>
+        <p>© 2026 VIBE STUDIO. All rights reserved.</p>
         <p>이 웹사이트는 React + Redux Toolkit + Firebase + React Router 기술을 활용해 구축된 쇼핑몰 데모 프로젝트입니다.</p>
       </div>
     </footer>

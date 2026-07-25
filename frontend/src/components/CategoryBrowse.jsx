@@ -32,7 +32,7 @@ const CategoryBrowse = () => {
       {/* 타이틀 및 탭 버튼 */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
         <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight text-left">
-          Browse by categories
+          Explore Curated Collections
         </h2>
 
         {/* 필터 탭 조립 (각각 해당하는 카테고리 링크에 연결도 가능) */}

@@ -24,15 +24,15 @@ const Navbar = ({ authUser, onLogout }) => {
         {/* A. 로고 */}
         <Link to="/" className="flex items-center space-x-1 cursor-pointer">
           <span className="text-2xl font-black italic tracking-tighter text-slate-900 font-sans">
-            Brand
+            VIBE STUDIO
           </span>
         </Link>
 
-        {/* B. 중앙 검색바 (레퍼런스 스타일 이식) */}
+        {/* B. 중앙 검색바 */}
         <div className="hidden md:flex items-center relative w-[320px]">
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search catalog..."
             className="w-full bg-slate-50 border border-slate-200/80 focus:border-slate-400 focus:bg-white focus:ring-0 rounded-full pl-5 pr-10 py-2 text-xs transition-all duration-200 outline-hidden text-slate-800"
           />
           <Search size={14} className="absolute right-4 text-slate-400 pointer-events-none" />
@@ -83,17 +83,17 @@ const Navbar = ({ authUser, onLogout }) => {
         </div>
       </div>
 
-      {/* 2. 하단 서브 메뉴 카테고리 링크 라인 (레퍼런스 스타일) */}
+      {/* 2. 하단 서브 메뉴 카테고리 링크 라인 */}
       <div className="bg-white border-t border-slate-50 overflow-x-auto">
         <div className="max-w-6xl mx-auto px-4 py-2.5 flex space-x-6 sm:space-x-8 text-[11px] font-extrabold tracking-wider text-slate-500 justify-start md:justify-center whitespace-nowrap scrollbar-none">
-          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">NEW ARRIVAL</Link>
-          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">MOST PICK</Link>
-          <Link to="/" className="text-rose-500 hover:text-rose-600 transition-colors duration-200">SALE</Link>
-          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">WOMEN</Link>
-          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">MEN</Link>
-          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">SNEAKERS</Link>
-          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">STORE LOCATION</Link>
-          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">CONTACT US</Link>
+          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">NEW RELEASES</Link>
+          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">BESTSELLERS</Link>
+          <Link to="/" className="text-rose-500 hover:text-rose-600 transition-colors duration-200">SEASON OFFER</Link>
+          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">WOMEN'S</Link>
+          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">MEN'S</Link>
+          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">FOOTWEAR</Link>
+          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">BOUTIQUES</Link>
+          <Link to="/" className="hover:text-slate-900 transition-colors duration-200">HELP & INFO</Link>
         </div>
       </div>
     </header>

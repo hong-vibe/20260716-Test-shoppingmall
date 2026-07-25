@@ -74,7 +74,7 @@ const Login = ({ onLoginSuccess }) => {
             <Sparkles size={24} />
           </div>
           <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-            {isRegisterMode ? 'VIBE SHOP 회원가입' : 'VIBE SHOP 로그인'}
+            {isRegisterMode ? 'VIBE STUDIO 회원가입' : 'VIBE STUDIO 로그인'}
           </h2>
           <p className="text-sm text-slate-500 mt-1.5">
             {isRegisterMode ? '새 계정을 만들고 쇼핑을 시작하세요' : '로그인하여 멋진 상품들을 확인하세요'}
