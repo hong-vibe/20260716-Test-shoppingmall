@@ -81,11 +81,10 @@ const Login = ({ onLoginSuccess }) => {
           </p>
         </div>
 
-        {/* 안내 배지 (비밀번호 노출 안내 등) */}
-        <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-3 text-xs text-blue-700 text-left">
-          💡 <strong>환경 안내:</strong> Firebase 설정 전이라면, <br/>
-          이메일 <strong>user@test.com</strong> / 비밀번호 <strong>123456</strong><br/>
-          으로 테스트 입력해 보세요! (로컬 Mock 로그인 지원)
+        {/* 안내 배지 */}
+        <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-3 text-xs text-blue-700 text-left space-y-1">
+          <div>💡 <strong>테스트 이메일 :</strong> user@test.com</div>
+          <div>🔑 <strong>테스트 비밀번호 :</strong> 123456</div>
         </div>
 
         {/* 에러 알림창 */}
